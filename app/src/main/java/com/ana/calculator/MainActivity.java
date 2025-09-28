@@ -12,6 +12,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     // Declarar variáveis
@@ -56,6 +59,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (b != null) b.setOnClickListener(this);
         }
         if (backspace != null) backspace.setOnClickListener(this);
+
+        igual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    Expression expression = new ExpressionBuilder(txtExpressao.getText().toString()).build();
+                    double resultado = expression.evaluate();
+                    long longResult = (long) resultado;
+
+                    if(resultado == (double) longResult){
+                        txtResultado.setText((CharSequence) String.valueOf(longResult));
+                    }else{
+                        txtResultado.setText((CharSequence) String.valueOf(resultado));
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        });
+
     }
 
     //Recuperar os ids que estao declarados no activity
